@@ -6,18 +6,14 @@ import android.bluetooth.le.AdvertiseCallback;
 import android.bluetooth.le.AdvertiseData;
 import android.bluetooth.le.AdvertiseSettings;
 import android.bluetooth.le.BluetoothLeAdvertiser;
-import android.bluetooth.le.ScanFilter;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Handler;
-import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
-
-import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -27,7 +23,7 @@ public class MainActivity extends AppCompatActivity
     private Handler mHandler;
     private Runnable timeoutRunnable;
     private final static int REQUEST_COARSE_LOCATION = 1;
-    private long TIMEOUT = 5000;
+    private long TIMEOUT = 10000;
 
     public static final String ADVERTISING_FAILED =
             "com.example.android.bluetoothadvertisements.advertising_failed";
@@ -38,9 +34,9 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initialize();
+        //initialize();
         //startAdvertising();
-        setTimeout();
+        //setTimeout();
     }
 
     @Override
@@ -50,16 +46,7 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
     }
 
-    private void stopAdvertising()
-    {
-        if(mBluetoothLeAdvertiser!= null)
-        {
-            mBluetoothLeAdvertiser.stopAdvertising(mAdvertiseCallback);
-            mAdvertiseCallback = null;
-        }
-    }
-
-    private void initialize()
+    public void initialize(View view)
     {
         if(mBluetoothLeAdvertiser == null)
         {
@@ -79,6 +66,8 @@ public class MainActivity extends AppCompatActivity
                         if(mBluetoothAdapter.isMultipleAdvertisementSupported())
                         {
                             mBluetoothLeAdvertiser = mBluetoothAdapter.getBluetoothLeAdvertiser();
+                            startAdvertising();
+                            setTimeout();
                         }
                     }
                 }
@@ -102,7 +91,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run()
             {
-
+                sendFailureIntent(-1);
+                stopAdvertising();
             }
         };
         mHandler.postDelayed(timeoutRunnable, TIMEOUT);
@@ -120,10 +110,11 @@ public class MainActivity extends AppCompatActivity
                 {
                     mBluetoothLeAdvertiser = mBluetoothAdapter.getBluetoothLeAdvertiser();
                     startAdvertising();
+                    setTimeout();
                 }
                 else
                 {
-                    Toast.makeText(this, "Multiple ads not supported", Toast.LENGTH_SHORT);
+                    Toast.makeText(this, "Multiple ads not supported", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -144,6 +135,17 @@ public class MainActivity extends AppCompatActivity
                 mBluetoothLeAdvertiser.startAdvertising(settings, data, mAdvertiseCallback);
                 Log.d("advertise", "Started advertising");
             }
+        }
+    }
+
+    private void stopAdvertising()
+    {
+        Log.d("advertise", "Service: Stopping Advertising");
+        Toast.makeText(this, "Stopped advertising", Toast.LENGTH_LONG).show();
+        if (mBluetoothLeAdvertiser != null)
+        {
+            mBluetoothLeAdvertiser.stopAdvertising(mAdvertiseCallback);
+            mAdvertiseCallback = null;
         }
     }
 
@@ -197,14 +199,14 @@ public class MainActivity extends AppCompatActivity
             super.onStartSuccess(settingsInEffect);
             Log.d("advertise", "Advertise success");
         }
+    }
 
-        private void sendFailureIntent(int errorCode)
-        {
-            Intent failureIntent = new Intent();
-            failureIntent.setAction(ADVERTISING_FAILED);
-            failureIntent.putExtra(ADVERTISING_FAILED_EXTRA_CODE, errorCode);
-            sendBroadcast(failureIntent);
-            Log.d("advertise", failureIntent.toString());
-        }
+    private void sendFailureIntent(int errorCode)
+    {
+        Intent failureIntent = new Intent();
+        failureIntent.setAction(ADVERTISING_FAILED);
+        failureIntent.putExtra(ADVERTISING_FAILED_EXTRA_CODE, errorCode);
+        sendBroadcast(failureIntent);
+        Log.d("advertise", failureIntent.toString());
     }
 }
