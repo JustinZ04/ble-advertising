@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy()
     {
-        stopAdvertising();
+        //stopAdvertising(this.findViewById());
         super.onDestroy();
     }
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
                         {
                             mBluetoothLeAdvertiser = mBluetoothAdapter.getBluetoothLeAdvertiser();
                             startAdvertising();
-                            setTimeout();
+                            //setTimeout();
                         }
                     }
                 }
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity
             public void run()
             {
                 sendFailureIntent(-1);
-                stopAdvertising();
+                //stopAdvertising();
             }
         };
         mHandler.postDelayed(timeoutRunnable, TIMEOUT);
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     mBluetoothLeAdvertiser = mBluetoothAdapter.getBluetoothLeAdvertiser();
                     startAdvertising();
-                    setTimeout();
+                    //setTimeout();
                 }
                 else
                 {
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void stopAdvertising()
+    public void stopAdvertising(View view)
     {
         Log.d("advertise", "Service: Stopping Advertising");
         Toast.makeText(this, "Stopped advertising", Toast.LENGTH_LONG).show();
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity
     private AdvertiseSettings buildAdvertiseSettings()
     {
         AdvertiseSettings.Builder settingsBuilder = new AdvertiseSettings.Builder();
-        settingsBuilder.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_POWER);
+        settingsBuilder.setAdvertiseMode(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
         settingsBuilder.setTimeout(0);
 
         return settingsBuilder.build();
