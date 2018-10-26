@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     private EditText Password;
     private TextView Info;
     private Button   loginButton;
+    private RequestQueue myQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity
         Name = findViewById(R.id.name);
         Password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
+
+        myQueue = SingletonAPICalls.getInstance(this).getRequestQueue();
 
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -56,10 +60,67 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private void easyToast(String string){
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+        return;
+    }
+
+
+    private void toastError(){
+        Toast.makeText(this, "ERROR: Please Try Again", Toast.LENGTH_SHORT).show();
+        return;
+    }
+
     private void login(){
-        String url = Constants.URL;
-//
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, )
+        String loginURL = Constants.URL + Constants.LOGIN;
+
+        String email = Name.getText().toString();
+        String password = Password.getText().toString();
+
+        String re = "/^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/";
+
+        if(!email.matches(re)){
+            Toast.makeText(this, "Not a valid email!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        JSONObject obj = new JSONObject();
+        try{
+            obj.put("email", email);
+            obj.put("password",  password);
+        }
+        catch (JSONException e){
+            toastError();
+            return;
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, loginURL, obj,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            if (response.has("error")) {
+                                easyToast("User not found!");
+                                return;
+                            } else {
+                                easyToast("Verified!");
+                            }
+                        }
+
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+
+        myQueue.add(request);
 
     }
 
