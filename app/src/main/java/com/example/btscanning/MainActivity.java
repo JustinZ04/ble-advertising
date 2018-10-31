@@ -1,6 +1,7 @@
 package com.example.btscanning;
 
 
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -61,7 +62,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void easyToast(String string){
-        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+        final String String;
+
+        String = string;
+
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(MainActivity.this, String, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return;
     }
 
@@ -77,10 +87,11 @@ public class MainActivity extends AppCompatActivity
         String email = Name.getText().toString();
         String password = Password.getText().toString();
 
-        String re = "/^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/";
+//        String re = '/^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/';
 
+        String re = "asdg";
         if(!email.matches(re)){
-            Toast.makeText(this, "Not a valid email!", Toast.LENGTH_SHORT).show();
+            easyToast("Not a valid email!");
             return;
         }
 
