@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity
 
 //        String re = '/^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/';
 
-        String re = "asdg";
-        if(!email.matches(re)){
-            easyToast("Not a valid email!");
-            return;
-        }
+//        String re = "asdg";
+//        if(!email.matches(re)){
+//            easyToast("Not a valid email!");
+//            return;
+//        }
 
         JSONObject obj = new JSONObject();
         try{
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
                         try{
                             if (response.has("error")) {
                                 easyToast("User not found!");
-                                return;
+
                             } else {
                                 easyToast("Verified!");
                             }
