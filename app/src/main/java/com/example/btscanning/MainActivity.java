@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity
 
         myQueue = SingletonAPICalls.getInstance(this).getRequestQueue();
 
+        if(Constants.LOGGED_IN){
+            Intent intent = new Intent(MainActivity.this, Dashboard.class);
+            startActivity(intent);
+        }
+
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -116,6 +121,7 @@ public class MainActivity extends AppCompatActivity
                             } else {
                                 easyToast("Verified!");
                                 Constants.LOGGED_IN = true;
+                                SaveSharedPreference.setUserName(MainActivity.this, email);
                                 Intent intent = new Intent(MainActivity.this, Dashboard.class);
                                 startActivity(intent);
                             }
