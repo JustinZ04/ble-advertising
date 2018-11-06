@@ -2,6 +2,7 @@ package com.example.btscanning;
 
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -75,33 +76,32 @@ public class MainActivity extends AppCompatActivity
         return;
     }
 
-
-    private void toastError(){
-        Toast.makeText(this, "ERROR: Please Try Again", Toast.LENGTH_SHORT).show();
-        return;
-    }
-
     private void login(){
         String loginURL = Constants.URL + Constants.LOGIN;
 
         String email = Name.getText().toString();
         String password = Password.getText().toString();
 
-//        String re = '/^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/';
-
-//        String re = "asdg";
+//        String re = "^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+//
 //        if(!email.matches(re)){
 //            easyToast("Not a valid email!");
 //            return;
 //        }
+//
+//        if(password.matches("")){
+//            easyToast("Please put in a Password!");
+//            return;
+//        }
 
         JSONObject obj = new JSONObject();
+
         try{
             obj.put("email", email);
             obj.put("password",  password);
         }
         catch (JSONException e){
-            toastError();
+            easyToast("ERROR: Please try again.");
             return;
         }
 
@@ -115,6 +115,9 @@ public class MainActivity extends AppCompatActivity
 
                             } else {
                                 easyToast("Verified!");
+                                Constants.LOGGED_IN = true;
+                                Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                                startActivity(intent);
                             }
                         }
 
@@ -127,6 +130,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                easyToast("error!!");
             }
         });
 
