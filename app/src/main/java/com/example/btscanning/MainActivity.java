@@ -26,6 +26,8 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity
 {
 
+    private String email;
+    private String password;
     private EditText Name;
     private EditText Password;
     private TextView Info;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity
 
         myQueue = SingletonAPICalls.getInstance(this).getRequestQueue();
 
-        if(Constants.LOGGED_IN){
+        if(SaveSharedPreference.getUserName(MainActivity.this).length() == 0){
             Intent intent = new Intent(MainActivity.this, Dashboard.class);
             startActivity(intent);
         }
@@ -84,8 +86,8 @@ public class MainActivity extends AppCompatActivity
     private void login(){
         String loginURL = Constants.URL + Constants.LOGIN;
 
-        String email = Name.getText().toString();
-        String password = Password.getText().toString();
+        email = Name.getText().toString();
+        password = Password.getText().toString();
 
 //        String re = "^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
 //
