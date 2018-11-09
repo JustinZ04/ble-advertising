@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
 
         myQueue = SingletonAPICalls.getInstance(this).getRequestQueue();
 
-        if(SaveSharedPreference.getUserName(MainActivity.this).length() == 0){
+        if(!(SaveSharedPreference.getUserName(MainActivity.this).length() == 0)){
             Intent intent = new Intent(MainActivity.this, Dashboard.class);
             startActivity(intent);
         }
