@@ -89,17 +89,17 @@ public class MainActivity extends AppCompatActivity
         email = Name.getText().toString();
         password = Password.getText().toString();
 
-//        String re = "^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-//
-//        if(!email.matches(re)){
-//            easyToast("Not a valid email!");
-//            return;
-//        }
-//
-//        if(password.matches("")){
-//            easyToast("Please put in a Password!");
-//            return;
-//        }
+        String re = "^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+
+        if(!email.matches(re)){
+            easyToast("Not a valid email!");
+            return;
+        }
+
+        if(password.matches("")){
+            easyToast("Please put in a Password!");
+            return;
+        }
 
         JSONObject obj = new JSONObject();
 
@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
+
                             if (response.has("error")) {
                                 easyToast("User not found!");
 
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity
                                 easyToast("Verified!");
                                 Constants.LOGGED_IN = true;
                                 SaveSharedPreference.setUserName(MainActivity.this, email);
+                                SaveSharedPreference.setPrefProfNID(MainActivity.this, response.getString("profNID"));
                                 Intent intent = new Intent(MainActivity.this, Dashboard.class);
                                 startActivity(intent);
                             }

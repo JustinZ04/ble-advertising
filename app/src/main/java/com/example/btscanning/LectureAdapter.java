@@ -26,7 +26,6 @@ public class LectureAdapter extends RecyclerView.Adapter<LectureAdapter.LectureV
     public LectureViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.layout_listitem, null);
-        LectureViewHolder holder = new LectureViewHolder(view);
         return new LectureViewHolder(view);
     }
 
