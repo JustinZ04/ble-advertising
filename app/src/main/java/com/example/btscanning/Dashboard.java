@@ -68,7 +68,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void loadClasses(){
-        String loginURL = Constants.URL + Constants.Classes + SaveSharedPreference.getPrefProfNid(Dashboard.this);
+        String loginURL = Constants.URL + Constants.Classes + SaveSharedPreference.getPrefProfNid(Dashboard.this) + "/" + APIKeys.apiKey;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, loginURL,
                 new Response.Listener<String>() {
