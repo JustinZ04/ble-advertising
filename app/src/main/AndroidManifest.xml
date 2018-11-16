@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:noHistory="true" android:screenOrientation="portrait">
+        <activity
+            android:name=".MainActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".AdvertiseActivity" />
-        <activity android:name=".Dashboard"></activity>
+        <activity android:name=".Dashboard" />
+        <activity android:name=".StartLectureActivity"
+            android:parentActivityName=".Dashboard"></activity>
     </application>
 
 </manifest>
