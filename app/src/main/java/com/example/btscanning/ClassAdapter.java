@@ -12,18 +12,12 @@ import java.util.List;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder> {
 
-    public interface OnItemClickListener {
-        void onItemClick(Class item);
-    }
-
     private Context mCtx;
     private List<Class> classList;
-    private final OnItemClickListener listener;
 
-    public ClassAdapter(Context mCtx, List<Class> classList, OnItemClickListener listener) {
+    public ClassAdapter(Context mCtx, List<Class> classList) {
         this.mCtx = mCtx;
         this.classList = classList;
-        this.listener = listener;
     }
 
     class ClassViewHolder extends RecyclerView.ViewHolder{
@@ -37,16 +31,6 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
             name = itemView.findViewById(R.id.name);
             startEndTime = itemView.findViewById(R.id.start_end_time);
 
-        }
-
-        public void bind(final Class item, final OnItemClickListener listener){
-            itemView.setOnClickListener(new View.OnClickListener(){
-
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(item);
-                }
-            });
         }
     }
 
@@ -67,8 +51,6 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
         classViewHolder.courseID.setText(newClass.getCourse_id());
         classViewHolder.name.setText(newClass.getName());
         classViewHolder.startEndTime.setText(newString);
-
-        classViewHolder.bind(newClass, listener);
 
     }
 

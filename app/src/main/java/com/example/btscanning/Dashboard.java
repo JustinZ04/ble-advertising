@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -93,6 +94,19 @@ public class Dashboard extends AppCompatActivity {
                             adapter = new ClassAdapter(Dashboard.this, classList);
                             recyclerView.addItemDecoration(new DividerItemDecoration(Dashboard.this,LinearLayoutManager.VERTICAL));
                             recyclerView.setAdapter(adapter);
+
+                            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+                                @Override
+                                public void onClick(View view, int position) {
+                                    Class curClass = classList.get(position);
+                                    Toast.makeText(getApplicationContext(), curClass.getName() + " is selected!", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onLongClick(View view, int position) {
+
+                                }
+                            }));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
