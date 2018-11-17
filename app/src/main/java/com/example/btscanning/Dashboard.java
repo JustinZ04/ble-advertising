@@ -1,5 +1,6 @@
 package com.example.btscanning;
 
+import android.content.Intent;
 import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class Dashboard extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ClassAdapter adapter;
+    Boolean flag = false;
 
     List<Class> classList;
 
@@ -82,6 +84,7 @@ public class Dashboard extends AppCompatActivity {
                                 JSONObject classObject = classes.getJSONObject(i);
 
                                 Class newClass = new Class(
+                                        classObject.getString("_id"),
                                         classObject.getString("courseID"),
                                         classObject.getString("className"),
                                         classObject.getString("startTime"),
@@ -100,6 +103,12 @@ public class Dashboard extends AppCompatActivity {
                                 public void onClick(View view, int position) {
                                     Class curClass = classList.get(position);
                                     Toast.makeText(getApplicationContext(), curClass.getName() + " is selected!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Dashboard.this, StartLectureActivity.class);
+                                    intent.putExtra("classID", curClass.getCourse_id());
+                                    intent.putExtra("className", curClass.getName());
+                                    intent.putExtra("classDbID", curClass.getDatabase_id());
+                                    startActivity(intent);
+
                                 }
 
                                 @Override

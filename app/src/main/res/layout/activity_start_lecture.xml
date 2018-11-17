@@ -6,4 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".StartLectureActivity">
 
+    <Button
+        android:id="@+id/startScanning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="313dp"
+        android:text="Start Scanning"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/className"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/stopScanning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Stop Scanning"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/startScanning"
+        app:layout_constraintTop_toBottomOf="@+id/startScanning"
+        app:layout_constraintVertical_bias="0.157" />
+
+    <TextView
+        android:id="@+id/className"
+        android:layout_width="289dp"
+        android:layout_height="107dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="100dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="36dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/startScanning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

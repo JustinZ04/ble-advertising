@@ -2,12 +2,14 @@ package com.example.btscanning;
 
 public class Class {
 
+    public String database_id;
     public String course_id;
     public String name;
     public String startTime;
     public String endTime;
 
-    public Class(String course_id, String name, String startTime, String endTime) {
+    public Class(String database_id, String course_id, String name, String startTime, String endTime) {
+        this.database_id = database_id;
         this.course_id = course_id;
         this.name = name;
         this.startTime = startTime;
@@ -44,6 +46,14 @@ public class Class {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getDatabase_id() {
+        return database_id;
+    }
+
+    public void setDatabase_id(String database_id) {
+        this.database_id = database_id;
     }
 
 

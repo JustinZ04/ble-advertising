@@ -9,5 +9,6 @@ public class Constants
     public static final String URL = "https://ble-attendance.herokuapp.com";
     public static final String LOGIN = "/api/professors/login/" + APIKeys.apiKey;
     public static final String Classes = "/api/classes/";
+    public static final String Lectures = "/api/lectures/create/";
     public static boolean LOGGED_IN = false;
 }
