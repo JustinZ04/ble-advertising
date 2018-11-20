@@ -257,7 +257,7 @@ public class StartLectureActivity extends AppCompatActivity {
 
     private void createLecture(){
 
-        String loginURL = Constants.URL + Constants.Lectures + classDbID + "/" + lectureUUID + "/" + APIKeys.apiKey;
+        String loginURL = Constants.URL + Constants.Lectures + classDbID + "/" + SaveSharedPreference.getPrefProfUuid(this) + "/" + APIKeys.apiKey;
 
         JSONObject obj = new JSONObject();
 

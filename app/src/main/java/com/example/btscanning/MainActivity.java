@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity
                                 Constants.LOGGED_IN = true;
                                 SaveSharedPreference.setUserName(MainActivity.this, email);
                                 SaveSharedPreference.setPrefProfNID(MainActivity.this, response.getString("profNID"));
+                                SaveSharedPreference.setProfUUID(MainActivity.this, response.getString("bleUUID"));
                                 Intent intent = new Intent(MainActivity.this, Dashboard.class);
                                 startActivity(intent);
                             }

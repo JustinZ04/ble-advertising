@@ -10,9 +10,17 @@ public class SaveSharedPreference {
     static final String PREF_USER_NAME = "";
     static final String PREF_PROF_NAME = "";
     static final String PREF_PROF_NID = "";
+    static final String PREF_PROF_UUID = "";
 
     static SharedPreferences getSharedPreferences(Context ctx){
         return PreferenceManager.getDefaultSharedPreferences(ctx);
+    }
+
+    public static void setProfUUID(Context ctx, String profUUID)
+    {
+        Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_PROF_UUID, profUUID);
+        editor.commit();
     }
 
     public static void setUserName(Context ctx, String userName)
@@ -48,5 +56,9 @@ public class SaveSharedPreference {
 
     public static String getPrefProfNid(Context ctx){
         return getSharedPreferences(ctx).getString(PREF_PROF_NID, "");
+    }
+
+    public static String getPrefProfUuid(Context ctx){
+        return getSharedPreferences(ctx).getString(PREF_PROF_UUID, "");
     }
 }
