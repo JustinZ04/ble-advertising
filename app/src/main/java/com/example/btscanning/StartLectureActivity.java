@@ -257,30 +257,30 @@ public class StartLectureActivity extends AppCompatActivity {
 
     private void createLecture(){
 
-        String loginURL = Constants.URL + Constants.Lectures + classDbID + "/" + SaveSharedPreference.getPrefProfUuid(this) + "/" + APIKeys.apiKey;
+        String updateProfUUID = Constants.URL + Constants.updateProfUUID + SaveSharedPreference.getPrefProfNid(this) + "/" + APIKeys.apiKey;
+        String addLectureURL = Constants.URL + Constants.Lectures + classDbID + "/" + lectureUUID.toString() + "/" + APIKeys.apiKey;
 
         JSONObject obj = new JSONObject();
 
         try{
-            obj.put("class_id", classDbID);
-            obj.put("profUUID",  lectureUUID.toString());
+            obj.put("uuid",  lectureUUID.toString());
         }
         catch (JSONException e){
             easyToast("ERROR: Please try again.");
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, loginURL, obj,
+        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.POST, updateProfUUID, obj,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
 
-                            if (response.has("error")) {
-                                easyToast("Failed to find Lecture!");
+                            if (response.has("Successfully updated professor uuid")) {
+                                //SaveSharedPreference.setProfUUID(StartLectureActivity.this, lectureUUID.toString());
+                                easyToast("Preparations Successful!");
 
                             } else {
-                                easyToast("Created Lecture!");
-
+                                easyToast("Failed to prepare for new Lecture!");
                             }
                         }
 
@@ -298,7 +298,42 @@ public class StartLectureActivity extends AppCompatActivity {
             }
         });
 
-        myQueue.add(request);
+        myQueue.add(request1);
+
+        JsonObjectRequest request2 = new JsonObjectRequest(Request.Method.POST, addLectureURL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                         
+                        try{
+
+                            if (!response.has("Lecture successfully created")) {
+                                easyToast("Failed to find Lecture!");
+
+                            }
+
+                            else {
+                                easyToast("Created Lecture!");
+                            }
+                        }
+
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                easyToast("error!!");
+
+            }
+        });
+
+
+        myQueue.add(request2);
 
     }
 

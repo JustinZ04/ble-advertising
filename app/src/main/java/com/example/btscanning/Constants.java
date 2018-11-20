@@ -10,5 +10,6 @@ public class Constants
     public static final String LOGIN = "/api/professors/login/" + APIKeys.apiKey;
     public static final String Classes = "/api/classes/";
     public static final String Lectures = "/api/lectures/create/";
+    public static final String updateProfUUID = "/api/professors/updateUUID/";
     public static boolean LOGGED_IN = false;
 }
