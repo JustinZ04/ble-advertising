@@ -26,6 +26,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -300,27 +301,19 @@ public class StartLectureActivity extends AppCompatActivity {
 
         myQueue.add(request1);
 
-        JsonObjectRequest request2 = new JsonObjectRequest(Request.Method.POST, addLectureURL, null,
-                new Response.Listener<JSONObject>() {
+        StringRequest request2 = new StringRequest(Request.Method.POST, addLectureURL,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(String response) {
 
-                         
-                        try{
-
-                            if (!response.has("Lecture successfully created")) {
-                                easyToast("Failed to find Lecture!");
-
-                            }
-
-                            else {
-                                easyToast("Created Lecture!");
-                            }
+                        if(response.matches("Lecture successfully created")){
+                            easyToast("Created Lecture successfully");
                         }
 
-                        catch (Exception e){
-                            e.printStackTrace();
+                        else{
+                            easyToast("Failed to create Lecture");
                         }
+
 
                     }
                 }, new Response.ErrorListener() {
