@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.util.UUID;
 import android.os.ParcelUuid;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -261,7 +262,7 @@ public class StartLectureActivity extends AppCompatActivity {
         String updateProfUUID = Constants.URL + Constants.updateProfUUID + SaveSharedPreference.getPrefProfNid(this) + "/" + APIKeys.apiKey;
         String addLectureURL = Constants.URL + Constants.Lectures + classDbID + "/" + lectureUUID.toString() + "/" + APIKeys.apiKey;
 
-        JSONObject obj = new JSONObject();
+        final JSONObject obj = new JSONObject();
 
         try{
             obj.put("uuid",  lectureUUID.toString());
@@ -270,13 +271,13 @@ public class StartLectureActivity extends AppCompatActivity {
             easyToast("ERROR: Please try again.");
         }
 
-        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.POST, updateProfUUID, obj,
-                new Response.Listener<JSONObject>() {
+        StringRequest request1 = new StringRequest(Request.Method.POST, updateProfUUID,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(String response) {
                         try{
 
-                            if (response.has("Successfully updated professor uuid")) {
+                            if (response.matches("\"Successfully updated professor uuid\"")) {
                                 //SaveSharedPreference.setProfUUID(StartLectureActivity.this, lectureUUID.toString());
                                 easyToast("Preparations Successful!");
 
@@ -297,7 +298,18 @@ public class StartLectureActivity extends AppCompatActivity {
                 easyToast("error!!");
 
             }
-        });
+        }){
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return obj.toString().getBytes();
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+        };
 
         myQueue.add(request1);
 
@@ -306,12 +318,16 @@ public class StartLectureActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        if(response.matches("Lecture successfully created")){
-                            easyToast("Created Lecture successfully");
+                        if(response.matches("\"Lecture already exists for today, please delete the lecture for today if you wish to overwrite the current attendance record\"")){
+                            easyToast("Lecture already exists for today");
+                        }
+
+                        else if(response.contains("error")){
+                            easyToast("Error when adding Lecture to Database!");
                         }
 
                         else{
-                            easyToast("Failed to create Lecture");
+                            easyToast("Created Lecture successfully");
                         }
 
 
