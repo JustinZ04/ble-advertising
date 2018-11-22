@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -69,6 +70,29 @@ public class Dashboard extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_items, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.logout_item:
+                return logout();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public boolean logout(){
+        Constants.LOGGED_IN = false;
+        SaveSharedPreference.setUserName(Dashboard.this, "");
+        SaveSharedPreference.setPrefProfNID(Dashboard.this, "");
+        finish();
+        easyToast("Logging out");
+        Intent backLogin = new Intent(Dashboard.this, MainActivity.class);
+        //backLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(backLogin);
         return true;
     }
 
