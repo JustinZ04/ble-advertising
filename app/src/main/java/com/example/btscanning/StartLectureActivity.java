@@ -233,6 +233,7 @@ public class StartLectureActivity extends AppCompatActivity {
             mBluetoothLeAdvertiser.stopAdvertising(mAdvertiseCallback);
             mAdvertiseCallback = null;
             stopLecture.setEnabled(false);
+            startLecture.setEnabled(true);
         }
     }
 
@@ -283,11 +284,13 @@ public class StartLectureActivity extends AppCompatActivity {
 
                             } else {
                                 easyToast("Failed to prepare for new Lecture!");
+                                stopAdvertising();
                             }
                         }
 
                         catch (Exception e){
                             e.printStackTrace();
+                            stopAdvertising();
                         }
 
                     }
@@ -296,6 +299,7 @@ public class StartLectureActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 easyToast("error!!");
+                stopAdvertising();
 
             }
         }){
@@ -320,10 +324,12 @@ public class StartLectureActivity extends AppCompatActivity {
 
                         if(response.matches("\"Lecture already exists for today, please delete the lecture for today if you wish to overwrite the current attendance record\"")){
                             easyToast("Lecture already exists for today");
+                            stopAdvertising();
                         }
 
                         else if(response.contains("error")){
                             easyToast("Error when adding Lecture to Database!");
+                            stopAdvertising();
                         }
 
                         else{
@@ -337,6 +343,7 @@ public class StartLectureActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 easyToast("error!!");
+                stopAdvertising();
 
             }
         });
