@@ -260,8 +260,8 @@ public class StartLectureActivity extends AppCompatActivity {
 
     private void createLecture(){
 
-        String updateProfUUID = Constants.URL + Constants.updateProfUUID + SaveSharedPreference.getPrefProfNid(this) + "/" + APIKeys.apiKey;
-        String addLectureURL = Constants.URL + Constants.Lectures + classDbID + "/" + lectureUUID.toString() + "/" + APIKeys.apiKey;
+        String updateProfUUID = Constants.URL + Constants.updateProfUUID + SaveSharedPreference.getPrefProfNid(this);
+        String addLectureURL = Constants.URL + Constants.Lectures + classDbID + "/" + lectureUUID.toString();
 
         final JSONObject obj = new JSONObject();
 
