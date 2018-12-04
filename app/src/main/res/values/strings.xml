@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BTScanning</string>
+    <string name="app_name">BLU Professor</string>
     <string name="button">Start Advertising</string>
     <string name="button4">Stop</string>
     <string name="Logout">Logout</string>

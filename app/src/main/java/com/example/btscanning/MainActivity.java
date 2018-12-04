@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
                                 easyToast("User not found!");
 
                             } else {
-                                easyToast("Verified!");
+                                //easyToast("Verified!");
                                 Constants.LOGGED_IN = true;
                                 SaveSharedPreference.setUserName(MainActivity.this, email);
                                 SaveSharedPreference.setPrefProfNID(MainActivity.this, response.getString("profNID"));
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                easyToast("error!!");
+                //easyToast("error!!");
             }
         });
 

@@ -142,7 +142,7 @@ public class Dashboard extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view, int position) {
                                     Class curClass = classList.get(position);
-                                    Toast.makeText(getApplicationContext(), curClass.getName() + " is selected!", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getApplicationContext(), curClass.getName() + " is selected!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Dashboard.this, StartLectureActivity.class);
                                     intent.putExtra("classID", curClass.getCourse_id());
                                     intent.putExtra("className", curClass.getName());
@@ -165,7 +165,7 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                easyToast("Failed to get Classes from Database!");
+                //easyToast("Failed to get Classes from Database!");
             }
         });
 

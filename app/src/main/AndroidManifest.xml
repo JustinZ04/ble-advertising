@@ -25,10 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdvertiseActivity" />
-        <activity android:name=".Dashboard" />
+        <activity android:name=".AdvertiseActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Dashboard"
+            android:screenOrientation="portrait" />
         <activity android:name=".StartLectureActivity"
-            android:parentActivityName=".Dashboard"></activity>
+            android:parentActivityName=".Dashboard"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

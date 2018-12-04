@@ -75,7 +75,7 @@ public class StartLectureActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartLectureActivity.this, "Starting new Lecture", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(StartLectureActivity.this, "Starting new Lecture", Toast.LENGTH_SHORT).show();
                 startLecture.setEnabled(false);
                 initialize();
             }
@@ -85,7 +85,7 @@ public class StartLectureActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartLectureActivity.this, "Stopping Lecture", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(StartLectureActivity.this, "Stopping Lecture", Toast.LENGTH_SHORT).show();
                 stopAdvertising();
                 startLecture.setEnabled(true);
 
@@ -146,13 +146,13 @@ public class StartLectureActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "BT adapter null", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "BT adapter null", Toast.LENGTH_SHORT).show();
                     startLecture.setEnabled(true);
                 }
             }
             else
             {
-                Toast.makeText(this, "BT manager null", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "BT manager null", Toast.LENGTH_SHORT).show();
                 startLecture.setEnabled(true);
             }
         }
@@ -193,7 +193,7 @@ public class StartLectureActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Multiple ads not supported", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "Multiple ads not supported", Toast.LENGTH_SHORT).show();
                     startLecture.setEnabled(true);
                 }
             }
@@ -218,7 +218,7 @@ public class StartLectureActivity extends AppCompatActivity {
             }
 
             else{
-                easyToast("Something went wrong please try again");
+                //easyToast("Something went wrong please try again");
                 startLecture.setEnabled(true);
                 return;
             }
@@ -269,7 +269,7 @@ public class StartLectureActivity extends AppCompatActivity {
             obj.put("uuid",  lectureUUID.toString());
         }
         catch (JSONException e){
-            easyToast("ERROR: Please try again.");
+            //easyToast("ERROR: Please try again.");
         }
 
         StringRequest request1 = new StringRequest(Request.Method.POST, updateProfUUID,
@@ -280,10 +280,10 @@ public class StartLectureActivity extends AppCompatActivity {
 
                             if (response.matches("\"Successfully updated professor uuid\"")) {
                                 //SaveSharedPreference.setProfUUID(StartLectureActivity.this, lectureUUID.toString());
-                                easyToast("Preparations Successful!");
+                                //easyToast("Preparations Successful!");
 
                             } else {
-                                easyToast("Failed to prepare for new Lecture!");
+                                //easyToast("Failed to prepare for new Lecture!");
                                 stopAdvertising();
                             }
                         }
@@ -298,7 +298,7 @@ public class StartLectureActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                easyToast("error!!");
+                //easyToast("error!!");
                 stopAdvertising();
 
             }
@@ -328,7 +328,7 @@ public class StartLectureActivity extends AppCompatActivity {
                         }
 
                         else if(response.contains("error")){
-                            easyToast("Error when adding Lecture to Database!");
+                            //easyToast("Error when adding Lecture to Database!");
                             stopAdvertising();
                         }
 
@@ -342,7 +342,7 @@ public class StartLectureActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                easyToast("error!!");
+                //easyToast("error!!");
                 stopAdvertising();
 
             }
